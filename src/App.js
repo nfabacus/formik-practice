@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button, FormGroup, Label } from 'reactstrap';
 import { withFormik, Form, Field } from 'formik'
 import * as yup from 'yup'
 
@@ -15,26 +16,32 @@ const App = ({  //props is passed here from mapPropsToValue
   //   <input type="password" name="password" placeholder="Password" value={values.password} onChange={handleChange}/>
   //   <button>Submit</button>
   // </form>
-  <Form>
-    <div>
-      { touched.email && errors.email && <p>{errors.email}</p> }
-      <Field type="email" name="email" placeholder="Email" />
-    </div>
+  <Form className="m-4">
+    <FormGroup>
+      <Label for="Email">Email</Label>
+      <Field className={`form-control ${touched.email && errors.email?"border-danger":""}`} type="email" name="email" placeholder="Please type in your email here." />
+      { touched.email && errors.email && <div style={{color:"red"}}>{errors.email}</div> }
+    </FormGroup>
     
-    <div>
-      { touched.password && errors.password && <p>{errors.password}</p> }
-      <Field type="password" name="password" placeholder="Password" />
-    </div>
-    <label>
-      <Field type="checkbox" name="newsletter" checked={values.newsletter} />
+    <FormGroup>
+      <Label for="Password">Password</Label>
+      <Field className={`form-control ${touched.password && errors.password?"border-danger":""}`}  type="password" name="password" placeholder="Please type in your email here." />
+      { touched.password && errors.password && <div style={{color:"red"}}>{errors.password}</div> }
+    </FormGroup>
+
+    <Label>
+      <Field type="checkbox" name="newsletter" checked={values.newsletter} /> {' '}
       Join our newsletter
-    </label>
-    <Field component="select" name="plan">
+    </Label>
+    <Field className="form-control" component="select" name="plan">
       <option value="free">Free</option>
       <option value="premium">Premium</option>
     </Field>
-    <button disabled={isSubmitting}>Submit</button>
+    <div className="mt-4">
+      <Button color="primary" disabled={isSubmitting}>Submit</Button>
+    </div>
   </Form>
+
 )
 
 const FormikApp = withFormik({
