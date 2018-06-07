@@ -86,9 +86,8 @@ const CustomInputComponent = ({
 }
 
 const FormikApp = withFormik({
-  mapPropsToValues({ username, email, password, newsletter, plan }) { //you can pass props from parent component
+  mapPropsToValues({ email, password, newsletter, plan }) { //you can pass props from parent component
     return {
-      username: username || '',
       email: email || '',
       password: password || '',
       newsletter: newsletter || true,
@@ -96,7 +95,6 @@ const FormikApp = withFormik({
     }
   },
   validationSchema: yup.object().shape({
-    username: yup.string().min(5).required(),
     email: yup.string().email('email not valid').required('email is required'),
     password: yup.string().min(9, 'Password must be 9 characters or longer').required('Password is required')
   }),
