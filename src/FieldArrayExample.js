@@ -2,6 +2,7 @@ import React from 'react';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import { Label } from 'reactstrap'
 import * as Yup from "yup";
+import _ from 'lodash';
 
 const schema = Yup.object().shape({
   friends: Yup.array()
@@ -40,8 +41,6 @@ export default () => (
         }, 500)
       }
       render={(props) => {
-        console.log('render::props>>>', props)
-
         const { values, errors } = props
         return (
           <Form>
@@ -56,8 +55,8 @@ export default () => (
                           {friend.type} &nbsp;
                           <Field name={`friends.${index}.value`} />
                           <ErrorMessage name={`friends.${index}.value`} component={customError}/>
+                          {/*{_.get(errors, `friends[${index}].value`)}*/}
                         </Label>
-
                         <button
                           type="button"
                           onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
